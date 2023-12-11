@@ -8,9 +8,11 @@ public class App {
         String tanggal;
         String lokasi;
         String waktu;
+
         int kuotaTicket;
         int availableTicket;
         double harga;
+        String namaPendaftar;
     
         public Event(String event, String tanggal, String lokasi, String waktu, int kuotaTicket, int availableTicket, double harga) { 
             this.event = event;
@@ -20,15 +22,17 @@ public class App {
             this.kuotaTicket = kuotaTicket;
             this.availableTicket = availableTicket;
             this.harga = harga;
+            this.namaPendaftar = "";
         }
 
-          public String toString(){
+        public String toString(){
         return event + " - " + tanggal + " - " + lokasi + " - " + waktu + " - Kuota: " + availableTicket + "/" + kuotaTicket + " - Harga: " + harga + " per tiket(satuan K)";
         }
 
-        public double daftarTicket(int jumlah){
+        double daftarTicket(int jumlah, String namaPendaftar) {
             if (availableTicket >= jumlah) {
                 availableTicket -= jumlah;
+                this.namaPendaftar = namaPendaftar;
                 return jumlah * harga;
             } else {
                 System.out.println("Maaf, tiket tidak cukup.");
@@ -48,7 +52,9 @@ public class App {
         System.out.println("Selamat Datang di Aplikasi Management Event");
         System.out.println("Berikut adalah peran yang disediakan: ");
         
-        while (true) {
+        boolean lanjut = true;
+
+        while (lanjut) {
             System.out.println("1. Pencari Informasi Event");
             System.out.println("2. Penyelenggara Event");
             System.out.println("0. Keluar");
@@ -60,13 +66,14 @@ public class App {
             switch (pilih) {
                 case 0:
                     System.out.println("Terima Kasih telah menggunakan aplikasi Management Event");
-                    return;
+                    lanjut = false;
+                    break;
                 case 1:
                     cariEvent(input);;
-                    return;
+                    break;
                 case 2:
                     buatEvent(input);
-                    return;
+                    break;
                 default:
                     System.out.println("Pilihan tidak valid, silahkan pilih sesuai yang sudah tertera.");
                     break;
@@ -104,12 +111,16 @@ public class App {
             }
     
             if (eventDipilih != null) {
-                System.out.println("Detail dari event " + eventDipilih.event + ":");
-                System.out.println("Tanggal: " + eventDipilih.tanggal);
-                System.out.println("Lokasi: " + eventDipilih.lokasi);
-                System.out.println("Waktu: " + eventDipilih.waktu);
-                System.out.println("Kuota Tersedia: " + eventDipilih.availableTicket + "/" + eventDipilih.kuotaTicket);
-                System.out.println("Harga Tiket: " + eventDipilih.harga + " per tiket(satuan K)");
+                System.out.println("\n===========================================");
+                System.out.println("               Detail Event                ");
+                System.out.println("===========================================");
+                System.out.println("Nama Event      : " + eventDipilih.event);
+                System.out.println("Tanggal         : " + eventDipilih.tanggal);
+                System.out.println("Lokasi          : " + eventDipilih.lokasi);
+                System.out.println("Waktu           : " + eventDipilih.waktu);
+                System.out.println("Kuota Tersedia  : " + eventDipilih.availableTicket + "/" + eventDipilih.kuotaTicket);
+                System.out.println("Harga Tiket     : " + eventDipilih.harga + " per tiket(satuan K)");
+                System.out.println("===========================================");
     
                 while (detail) {
                     System.out.print("\nApakah Anda ingin melihat detail dari event lain? (y/t)");
@@ -133,12 +144,16 @@ public class App {
                     }
     
                     if (eventDipilih != null) {
-                        System.out.println("Detail dari event " + eventDipilih.event + ":");
-                        System.out.println("Tanggal: " + eventDipilih.tanggal);
-                        System.out.println("Lokasi: " + eventDipilih.lokasi);
-                        System.out.println("Waktu: " + eventDipilih.waktu);
-                        System.out.println("Kuota Tersedia: " + eventDipilih.availableTicket + "/" + eventDipilih.kuotaTicket);
-                        System.out.println("Harga Tiket: " + eventDipilih.harga + " per tiket(satuan K)");
+                        System.out.println("\n===========================================");
+                        System.out.println("               Detail Event                ");
+                        System.out.println("===========================================");
+                        System.out.println("Nama Event      : " + eventDipilih.event);
+                        System.out.println("Tanggal         : " + eventDipilih.tanggal);
+                        System.out.println("Lokasi          : " + eventDipilih.lokasi);
+                        System.out.println("Waktu           : " + eventDipilih.waktu);
+                        System.out.println("Kuota Tersedia  : " + eventDipilih.availableTicket + "/" + eventDipilih.kuotaTicket);
+                        System.out.println("Harga Tiket     : " + eventDipilih.harga + " per tiket(satuan K)");
+                        System.out.println("===========================================");
                     } else {
                         System.out.println("Event tidak ditemukan.");
                     }
@@ -164,15 +179,30 @@ public class App {
             }
     
             if (eventDipilih != null) {
+                System.out.print("Masukkan nama Anda untuk mendaftar: ");
+                String namaPendaftar = cari.nextLine();
+
                 System.out.println("Berapa tiket yang ingin anda beli? (Angka)");
                 int jumlahTicket = 0;
                     jumlahTicket = cari.nextInt();
                     cari.nextLine();
     
-                    double totalHarga = eventDipilih.daftarTicket(jumlahTicket);
+                    double totalHarga = eventDipilih.daftarTicket(jumlahTicket, namaPendaftar);
                     if (totalHarga > 0) {
+                        System.out.println("\n===========================================");
                         System.out.println("Pendaftaran pada event " + eventDipilih.event + " Berhasil!");
+                        System.out.println("-------------------------------------------");
+                        System.out.println("Pendaftar: " + namaPendaftar);
                         System.out.println("Total harga yang harus dibayar: " + totalHarga);
+                        System.out.println("===========================================");
+                        System.out.println();
+
+                        System.out.print("\nApakah Anda ingin kembali ke menu? (y/t): ");
+                        String kembali = cari.nextLine().toLowerCase();
+                        if (!kembali.equals("y")) {
+                            System.out.println("Terima Kasih telah menggunakan aplikasi Management Event");
+                            System.exit(0); // Keluar dari program
+                        }
                     }
             } else {
                 System.out.println("Event tidak ditemukan");
@@ -201,6 +231,16 @@ public class App {
         Event eventBaru = new Event(event, tanggal, lokasi, waktu, kuotaTicket, kuotaTicket, hargaTicket);
         availableEvent.add(eventBaru);
 
+        System.out.println("\n===========================================");
         System.out.println("Event anda berhasil dibuat: " + eventBaru.event);
+        System.out.println("===========================================");
+        System.out.println();
+
+        System.out.print("\nApakah Anda ingin kembali ke menu? (y/t): ");
+        String kembali = buat.nextLine().toLowerCase();
+        if (!kembali.equals("y")) {
+            System.out.println("Terima Kasih telah menggunakan aplikasi Management Event");
+            System.exit(0);
+        }
     }
 }

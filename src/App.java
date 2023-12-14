@@ -92,7 +92,7 @@ public class App {
         boolean detail = true;
         System.out.println("\nEvent yang tersedia:");
         System.out.println("============================================");
-        System.out.println("No.  Event                          Kuota  ");
+        System.out.println("No.  Event                           Kuota  ");
         System.out.println("============================================");
 
         for (int i = 0; i < availableEvent.size(); i++) {
@@ -120,8 +120,8 @@ public class App {
 
             if (eventDipilih != null) {
                 System.out.println("\n===========================================");
-                System.out.println("               Detail Event                ");
-                System.out.println("===========================================");
+                System.out.println("               Detail Event                  ");
+                System.out.println("=============================================");
                 System.out.println("Nama Event      : " + eventDipilih.event);
                 System.out.println("Tanggal         : " + eventDipilih.tanggal);
                 System.out.println("Lokasi          : " + eventDipilih.lokasi);
@@ -155,8 +155,8 @@ public class App {
 
                     if (eventDipilih != null) {
                         System.out.println("\n===========================================");
-                        System.out.println("               Detail Event                ");
-                        System.out.println("===========================================");
+                        System.out.println("               Detail Event                  ");
+                        System.out.println("=============================================");
                         System.out.println("Nama Event      : " + eventDipilih.event);
                         System.out.println("Tanggal         : " + eventDipilih.tanggal);
                         System.out.println("Lokasi          : " + eventDipilih.lokasi);
